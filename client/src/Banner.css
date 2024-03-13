@@ -1,0 +1,44 @@
+#banner {
+background-color: black;
+display: flex;
+justify-content: center;
+align-items: stretch;
+}
+
+.banner1 {
+width: 10%;
+}
+
+.banner1 > img {
+    height: 100%;
+    width: 100%;
+}
+
+.banner2 {
+flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.banner2 > h1 {
+    font-family: 'Aleo', serif;
+    color: white;
+    font-size: 3.5vw;
+    font-weight:700;
+    letter-spacing: 0.15em;
+}
+
+.banner1 > h2 {
+    font-family: 'Rosarivo', serif;
+    color: white;
+    font-size: 2vw;
+    font-weight:lighter;
+    font-style:italic;
+}
+
+a {
+    text-decoration: none;
+}
