@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "mongodb": "^6.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.19",
+    "dotenv": "^16.4.5"
+  }
+}
