@@ -1,2 +1,2 @@
 # salon-inventory-MERN
-Overhauling [this](https://github.com/NickCheney/Salon-Inventory-Management) with TS/NoSQL
+Overhauling [the previous version](https://github.com/NickCheney/Salon-Inventory-Management) of the Fringe Salon Inventory Management web app with JS/TS and NoSQL.
