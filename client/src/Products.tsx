@@ -1,21 +1,36 @@
 import { useState, useEffect, FC } from 'react'
 import './Products.css'
 
-const ProductImage: FC<{id?: string, imageURL?: string, children?: JSX.Element}> = (props) => {
-  /** Return an element for a product image */
-  const prodImgDir = "src/assets/product-images";
-  const imageURL = props.imageURL? 
-    props.imageURL.indexOf("/")===-1? 
-      `${prodImgDir}/${props.imageURL}`
-      : props.imageURL
-    : `${prodImgDir}/default.svg`;
+// /** Return an element for a product image, optionally including an exit button. */
+// const ProductImage: FC<{imageURL?: string, resetImageProps?: ExitButtonProps}> = (props) => {
+//   const [resetImageProps, setResetImageProps] = useState(props.resetImageProps);
+//   const imageURL = getProductImageURL(props.imageURL);
 
-  
-  return <div id={props.id} className='productImage'> 
-    <img src={imageURL} />
-    {props.children}
-  </div>
-}
+//   useEffect(()=>{
+//     console.log("Running useEffect");
+//     if (props.resetImageProps) {
+//       getImageDimensions(imageURL).then(imageDimensions => {
+//         let [height, width] = imageDimensions;
+//         console.log(height, width);
+//         setResetImageProps(props.resetImageProps);
+//       }).catch(err => {
+//         console.error(err);
+//         setResetImageProps(undefined);
+//       });
+//     } else {
+//       // console.log("No image detected")
+//       setResetImageProps(undefined);
+//     }
+
+//   }, [props.imageURL]);
+
+//   console.log(`Rendering ProductImage component with image URL: ${imageURL}, reset image props: ${JSON.stringify(resetImageProps)} and props: ${JSON.stringify(props)}`);
+
+//   return <>
+//     <img className="productImage" src={imageURL}/>
+//     {resetImageProps? <ExitButton {...resetImageProps} /> : <></>}
+//   </>;
+// }
 
 type Product = {
   brand: string,
@@ -31,7 +46,7 @@ const ProductCard: FC<{product: Product}> = ({product}) => {
   /** Return an element for a product card. */
   return (
     <div className='productCard'>
-      <ProductImage imageURL={product.imageURL}/>
+      <img className="productImage" src={product.imageURL}/>
       <div className="productName">
         <div>
           <h3>{product.brand} {product.name}</h3>
@@ -68,6 +83,8 @@ const Products: FC = () => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  console.log(`Rendering products component with ${products.length} products`);
 
   useEffect(() => {
     fetchProducts()
@@ -106,4 +123,3 @@ const Products: FC = () => {
 }
 
 export default Products;
-export { ProductImage };

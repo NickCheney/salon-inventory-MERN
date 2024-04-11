@@ -1,69 +1,57 @@
 import { FC, useState } from 'react'
-import { ProductImage } from './Products.tsx'
+import ExitButton from './ExitButton.tsx'
+import UploadImageButton from './UploadImageButton.tsx'
 import './NewProduct.css'
-import cancelIcon from './assets/icons/cancel_icon.svg'
-import uploadImgIcon from './assets/icons/image_upload.svg'
 
-const ExitButton: FC<{id: string, parameter: any, onClickFx: Function}> = (props) => {
-    return <div id={props.id} className="cancel">
-        <button onClick={()=>props.onClickFx(props.parameter)}>
-            <img src={cancelIcon}/>
-        </button>
+const NewProductModal: FC<{onExit: Function}> = (props) => {
+  const [productImageURL, setProductImageURL] = useState<string | undefined>(undefined);
+  const imageURL = productImageURL? productImageURL : "src/assets/product-images/default.svg";
+
+  /** Exit modal when bg clicked */
+  const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (e.target instanceof HTMLDivElement && e.target.id === "newProductWindow") {
+      props.onExit();
+    }
+  }
+
+  /** Replace preview image when changed */
+  const handleUploadImageChange = (event:  React.ChangeEvent<HTMLInputElement>) => {
+    const imgFile = event.target.files?.[0];
+    if (imgFile) {
+      if (productImageURL) {
+        // Release existing image url
+        URL.revokeObjectURL(productImageURL);
+      }
+      const newURL = URL.createObjectURL(imgFile);
+      console.log(`New product image URL changed to: ${newURL}`);
+      setProductImageURL(newURL);
+    }
+  }
+
+  console.log(`Rendering NewProduct Component with product image url: ${productImageURL}`);
+
+  return (
+    <div id="newProductWindow" onClick={handleClick}>
+      <div>
+        <ExitButton onClick={props.onExit} id="cancelNewProduct"/>
+        <div id="imageSelector">
+          <div id="imagePreview">
+            <img className="productImage" src={imageURL}/>
+              {productImageURL && <ExitButton
+                onClick={() => setProductImageURL(undefined)}
+                id="resetImage"
+                forImage={productImageURL}
+              />} 
+          </div>
+          <div id="imageOption">
+            <UploadImageButton existingImage={!!productImageURL} onUploadImageChange={handleUploadImageChange}/>
+          </div>
+        </div>
+        <div id="productInfoForm">
+        </div>
+      </div>
     </div>
+  )
 }
 
-const NewProduct: FC<{visible: boolean, setVisible: Function}> = ({visible, setVisible}) => {
-    const [productImageURL, setProductImageURL] = useState<string | undefined>(undefined);
-    return visible? 
-        <div 
-            id="newProductWindow" 
-            onClick={
-                e => {
-                    if (e.target instanceof HTMLElement && e.target.id === "newProductWindow") {
-                        setVisible(false);
-                    }
-                }
-            }
-        >
-            <div>
-                <ExitButton id="cancel" parameter={false} onClickFx={setVisible}/>
-                <div id="imageSelector">
-                    <ProductImage id="imagePreview" imageURL={productImageURL}>
-                        {/* <ExitButton id="resetImage" parameter={undefined} onClickFx={setProductImageURL}/> */}
-                    </ProductImage>
-                    <div id="imageOption">
-                        <label htmlFor="prodImg">
-                            <img src={uploadImgIcon}></img>
-                            &nbsp;&nbsp;
-                            <h3>{`${productImageURL? "Replace": "Upload"} Image`}</h3>
-                        </label>
-                        <input 
-                            type="file" 
-                            id="prodImg" 
-                            name="prodImg" 
-                            accept="image/*" 
-                            hidden 
-                            aria-hidden 
-                            onChange = {
-                                (event) => {
-                                    const imgFile = event.target.files?.[0];
-                                    if (imgFile) {
-                                        if (productImageURL) {
-                                            // Release existing image url
-                                            URL.revokeObjectURL(productImageURL);
-                                        }
-                                        setProductImageURL(URL.createObjectURL(imgFile));
-                                    }
-                                }
-                            }
-                        />
-                    </div>
-                </div>
-                <div id="productInfoForm">
-                </div>
-            </div>
-        </div> 
-    : <></>;
-}
-
-export default NewProduct;
+export default NewProductModal;

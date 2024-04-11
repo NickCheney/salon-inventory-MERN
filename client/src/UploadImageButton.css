@@ -1,0 +1,22 @@
+.uploadImageButton {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.uploadImageButton:hover {
+    cursor: pointer;
+    background-color: rgb(0, 86, 170);
+    color: white;
+}
+
+.uploadImageButton > img {
+    height: 30px;
+    width: 30px;
+
+}
+
+.uploadImageButton:hover > img {
+    filter: invert(100%);
+}

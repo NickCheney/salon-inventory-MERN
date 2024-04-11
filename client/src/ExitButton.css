@@ -1,0 +1,25 @@
+.cancel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    border: none;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+    aspect-ratio: 1 / 1;
+}
+
+.cancel > img {
+    height: 90%;
+    width: 90%;
+}
+
+.cancel:hover {
+    cursor: pointer;
+    background-color: rgb(128,64,64);
+}
+
+.cancel:hover > img {
+    filter: invert(100%);
+}

@@ -1,7 +1,7 @@
 import { FC, useState } from "react"
 import Banner from './Banner'
 import Products from './Products'
-import NewProduct from './NewProduct'
+import NewProductModal from './NewProduct'
 import './App.css'
 
 const App: FC = () => {
@@ -27,7 +27,7 @@ const App: FC = () => {
 
       </div>
       <Products />
-      <NewProduct visible={showNewProduct} setVisible={setShowNewProduct}/>
+      {showNewProduct && <NewProductModal onExit={() => setShowNewProduct(false)}/>}
     </>
   )
 }
