@@ -1,37 +1,6 @@
 import { useState, useEffect, FC } from 'react'
 import './Products.css'
 
-// /** Return an element for a product image, optionally including an exit button. */
-// const ProductImage: FC<{imageURL?: string, resetImageProps?: ExitButtonProps}> = (props) => {
-//   const [resetImageProps, setResetImageProps] = useState(props.resetImageProps);
-//   const imageURL = getProductImageURL(props.imageURL);
-
-//   useEffect(()=>{
-//     console.log("Running useEffect");
-//     if (props.resetImageProps) {
-//       getImageDimensions(imageURL).then(imageDimensions => {
-//         let [height, width] = imageDimensions;
-//         console.log(height, width);
-//         setResetImageProps(props.resetImageProps);
-//       }).catch(err => {
-//         console.error(err);
-//         setResetImageProps(undefined);
-//       });
-//     } else {
-//       // console.log("No image detected")
-//       setResetImageProps(undefined);
-//     }
-
-//   }, [props.imageURL]);
-
-//   console.log(`Rendering ProductImage component with image URL: ${imageURL}, reset image props: ${JSON.stringify(resetImageProps)} and props: ${JSON.stringify(props)}`);
-
-//   return <>
-//     <img className="productImage" src={imageURL}/>
-//     {resetImageProps? <ExitButton {...resetImageProps} /> : <></>}
-//   </>;
-// }
-
 type Product = {
   brand: string,
   name: string,
@@ -46,7 +15,7 @@ const ProductCard: FC<{product: Product}> = ({product}) => {
   /** Return an element for a product card. */
   return (
     <div className='productCard'>
-      <img className="productImage" src={product.imageURL}/>
+      <img className="productImage" src={product.imageURL || "src/assets/product-images/default.png"}/>
       <div className="productName">
         <div>
           <h3>{product.brand} {product.name}</h3>

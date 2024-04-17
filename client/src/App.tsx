@@ -12,7 +12,7 @@ const App: FC = () => {
       <Banner />
       <div id="nav">
         <div>
-          <button id="newProduct" onClick={() => setShowNewProduct(true)}>
+          <button id="newProduct" className="new" onClick={() => setShowNewProduct(true)}>
             <h1>+</h1>
           </button>
         </div>
